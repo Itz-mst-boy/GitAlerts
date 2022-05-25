@@ -211,14 +211,14 @@ def git_api(groupid):
                 commit_msg = escape(commit['message'])
             commits_text += f"{commit_msg}\n<a href='{commit['url']}'>{commit['id'][:7]}</a> - {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
             if len(commits_text) > 1000:
-                text = f"""âœ¨ <b>{escape(data['repository']['name'])}</b> - New {len(data['commits'])} commits ({escape(data['ref'].split('/')[-1])})
+                text = f"""✨ <b>{escape(data['repository']['name'])}</b> - New {len(data['commits'])} commits ({escape(data['ref'].split('/')[-1])})
 {commits_text}
 """
                 response = post_tg(groupid, text, "html")
                 commits_text = ""
         if not commits_text:
             return jsonify({"ok": True, "text": "Commits text is none"})
-        text = f"""âœ¨ <b>{escape(data['repository']['name'])}</b> - New {len(data['commits'])} commits ({escape(data['ref'].split('/')[-1])})
+        text = f"""✨¨ <b>{escape(data['repository']['name'])}</b> - New {len(data['commits'])} commits ({escape(data['ref'].split('/')[-1])})
 {commits_text}
 """
         if len(data['commits']) > 10:
@@ -228,14 +228,14 @@ def git_api(groupid):
 
     if data.get('issue'):
         if data.get('comment'):
-            text = f"""ðŸ’¬ New comment: <b>{escape(data['repository']['name'])}</b>
+            text = f"""🚨’¬ New comment: <b>{escape(data['repository']['name'])}</b>
 {escape(data['comment']['body'])}
 
 <a href='{data['comment']['html_url']}'>Issue #{data['issue']['number']}</a>
 """
             response = post_tg(groupid, text, "html")
             return response
-        text = f"""ðŸš¨ New {data['action']} issue for <b>{escape(data['repository']['name'])}</b>
+        text = f"""🚨¨ New {data['action']} issue for <b>{escape(data['repository']['name'])}</b>
 <b>{escape(data['issue']['title'])}</b>
 {escape(data['issue']['body'])}
 
@@ -246,14 +246,14 @@ def git_api(groupid):
 
     if data.get('pull_request'):
         if data.get('comment'):
-            text = f"""â— There is a new pull request for <b>{escape(data['repository']['name'])}</b> ({data['pull_request']['state']})
+            text = f"""💬— There is a new pull request for <b>{escape(data['repository']['name'])}</b> ({data['pull_request']['state']})
 {escape(data['comment']['body'])}
 
 <a href='{data['comment']['html_url']}'>Pull request #{data['issue']['number']}</a>
 """
             response = post_tg(groupid, text, "html")
             return response
-        text = f"""â—  New {data['action']} pull request for <b>{escape(data['repository']['name'])}</b>
+        text = f"""❗—  New {data['action']} pull request for <b>{escape(data['repository']['name'])}</b>
 <b>{escape(data['pull_request']['title'])}</b> ({data['pull_request']['state']})
 {escape(data['pull_request']['body'])}
 
@@ -265,7 +265,7 @@ def git_api(groupid):
     if data.get('forkee'):
         response = post_tg(
             groupid,
-            f"ðŸ´ <a href='{data['sender']['html_url']}'>{data['sender']['login']}</a> forked <a href='{data['repository']['html_url']}'>{data['repository']['name']}</a>!\nTotal forks now are {data['repository']['forks_count']}",
+            f"🍀´ <a href='{data['sender']['html_url']}'>{data['sender']['login']}</a> forked <a href='{data['repository']['html_url']}'>{data['repository']['name']}</a>!\nTotal forks now are {data['repository']['forks_count']}",
             "html")
         return response
 
@@ -278,7 +278,7 @@ def git_api(groupid):
             return response
 
         if data.get('action') == "started":
-            text = f"ðŸŒŸ <a href='{data['sender']['html_url']}'>{data['sender']['login']}</a> gave a star to <a href='{data['repository']['html_url']}'>{data['repository']['name']}</a>!\nTotal stars are now {data['repository']['stargazers_count']}"
+            text = f"💘 <a href='{data['sender']['html_url']}'>{data['sender']['login']}</a> gave a star to <a href='{data['repository']['html_url']}'>{data['repository']['name']}</a>!\nTotal stars are now {data['repository']['stargazers_count']}"
             response = post_tg(groupid, text, "html")
             return response
 
@@ -344,7 +344,7 @@ def git_api(groupid):
             summary = ""
             if x['summary']:
                 summary = f"{x['summary']}\n"
-            text += f"ðŸ“ <b>{escape(x['title'])}</b> ({x['action']})\n{summary}<a href='{x['html_url']}'>{x['page_name']}</a> - {x['sha'][:7]}"
+            text += f"📑<b>{escape(x['title'])}</b> ({x['action']})\n{summary}<a href='{x['html_url']}'>{x['page_name']}</a> - {x['sha'][:7]}"
             if len(data['pages']) >= 2:
                 text += "\n=====================\n"
             response = post_tg(groupid, text, "html")
@@ -352,13 +352,13 @@ def git_api(groupid):
 
     if data.get('context'):
         if data.get('state') == "pending":
-            emo = "â³"
+            emo = "⏳"
         elif data.get('state') == "success":
-            emo = "âœ”ï¸"
+            emo = "✅"
         elif data.get('state') == "failure":
-            emo = "âŒ"
+            emo = "❌"
         else:
-            emo = "ðŸŒ€"
+            emo = "🔰"
         response = post_tg(
             groupid,
             f"{emo} <a href='{data['target_url']}'>{data['description']}</a>" +
@@ -371,7 +371,7 @@ def git_api(groupid):
     url = deldog(data)
     response = post_tg(
         groupid,
-        "ðŸš« Webhook endpoint for this chat has received something that doesn't understood yet. " +
+        "🚫« Webhook endpoint for this chat has received something that doesn't understood yet. " +
         f"\n\nLink to logs for debugging: {url}",
         "markdown")
     return response
