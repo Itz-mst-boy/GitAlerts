@@ -64,7 +64,7 @@
 
 ## TODO
 - [ ] Better readme
-- [ ] Design improvement
+- [x] Design improvement
 
 [^TeamScenario]
 [^TeamScenario]: ©2022 TeamScenario All rights reserved!
