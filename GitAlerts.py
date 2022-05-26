@@ -103,12 +103,12 @@ def connect(update: Update, context: CallbackContext):
 
     if not text:
         reply_text = "Kindly give some text"
-    x = re.search("^/connect -100", text)
+    x = re.search("^-100", text)
+
     if x:
         pass
     else:
         reply_text = "Wrong chat id! it must start with -1001 or -100"
-    return connect
 
     try:
         reply_text = f"Payload url: `https://gitalertbot.herokuapp.com//{text}` \n\nSend /morehelp for more help."
