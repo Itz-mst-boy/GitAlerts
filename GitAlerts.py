@@ -103,7 +103,7 @@ def connect(update: Update, context: CallbackContext):
 
     if not text:
         reply_text = "Kindly give some text"
-    x = re.search("^-100", text)
+    x = re.search("^/connect -100", text)
     if x:
         pass
     else:
