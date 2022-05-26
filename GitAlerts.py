@@ -1,4 +1,4 @@
-import sys
+import sys, re
 from logging import basicConfig, getLogger, INFO
 from flask import Flask, request, jsonify
 from html import escape
