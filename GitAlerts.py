@@ -106,15 +106,10 @@ def connect(update: Update, context: CallbackContext):
     x = re.search("^-100", text)
 
     if x:
-        pass
+        reply_text = f"Payload url: `https://gitalertbot.herokuapp.com//{text}` \n\nSend /morehelp for more help."
+        message.reply_text(reply_text, parse_mode=ParseMode.MARKDOWN)
     else:
         reply_text = "Wrong chat id! it must start with -1001 or -100"
-
-    try:
-        reply_text = f"Payload url: `https://gitalertbot.herokuapp.com//{text}` \n\nSend /morehelp for more help."
-    except Exception as e:
-        reply_text = f"{e}"
-    message.reply_text(reply_text, parse_mode=ParseMode.MARKDOWN)
 
 def getSourceCodeLink(_bot, update):
     """Pulls link to the source code."""
